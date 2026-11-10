@@ -4,9 +4,9 @@ Small static placeholder pages for **Deathventory: Ember Road**. No game source 
 
 Hosted with GitHub Pages from the root of `main`:
 
-- Home: https://gltorres.github.io/deathventory-support/
-- Privacy: https://gltorres.github.io/deathventory-support/privacy/
-- Support: https://gltorres.github.io/deathventory-support/support/
+- Home: https://growlite.github.io/deathventory-support/
+- Privacy: https://growlite.github.io/deathventory-support/privacy/
+- Support: https://growlite.github.io/deathventory-support/support/
 
 ## Status
 
