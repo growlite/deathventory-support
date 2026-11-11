@@ -1,1 +1,951 @@
-*{box-sizing:border-box}html{color-scheme:dark}body{margin:0;background:#151714;color:#f1eee5;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.65}a{color:#f3bd83;text-underline-offset:4px}a:hover{color:#ffdbb5}a:focus-visible{outline:3px solid #f3bd83;outline-offset:5px;border-radius:2px}.shell{max-width:820px;margin:auto;padding:40px 24px 56px}header{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;padding-bottom:24px;border-bottom:1px solid #42473c}.brand{font-weight:700;text-decoration:none;color:#f1eee5;letter-spacing:-.02em}nav{display:flex;flex-wrap:wrap;gap:22px}nav a{font-size:15px}nav a[aria-current=page]{color:#fff}main{padding:56px 0 40px}.eyebrow{text-transform:uppercase;letter-spacing:.13em;font-size:12px;font-weight:700;color:#f3bd83}h1{font-family:Georgia,"Times New Roman",serif;font-weight:400;font-size:clamp(38px,6vw,62px);line-height:1.07;letter-spacing:-.035em;margin:18px 0 22px}h2{font-size:21px;line-height:1.3;margin:0 0 10px}.intro{font-size:20px;color:#e0e0d5;max-width:55ch}.notice{border-left:3px solid #f3bd83;background:#21251e;padding:20px 24px;margin:30px 0}.notice p{margin:0}.links{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:32px}.card{display:block;border:1px solid #42473c;border-radius:8px;padding:24px;text-decoration:none;background:#1a1e18}.card p{margin:8px 0 0;color:#c8cbbf}.translation{padding-top:28px;margin-top:32px;border-top:1px solid #42473c;color:#c8cbbf}footer{padding-top:24px;border-top:1px solid #42473c;color:#b5baac;font-size:14px}footer p{margin:6px 0}@media(max-width:480px){.shell{padding:24px 20px}main{padding-top:36px}nav{gap:18px}.notice{padding:16px 18px}}
+/* ==========================================================================
+   Deathventory: Ember Road — Player Support & Policy Field Kit
+   Palette & surface rules derived directly from ThemePalette & UiStyle:
+   - Locked 12-role Ember Road palette, zero rounded corners, crisp pixel UI
+   - Stitched leather frames with oxblood corner guards & brass rivets
+   - Stencilled cut-corner field labels, recessed backpack cells & keycaps
+   ========================================================================== */
+
+@font-face {
+  font-family: "Ember Road";
+  src: url("./assets/ember-road.woff") format("woff"),
+       url("./assets/ember-road.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Locked ThemePalette 12-role family */
+  --soot: #171512;
+  --pitch: #2B211B;
+  --waxed-canvas: #6F5B3D;
+  --canvas-highlight: #9A8359;
+  --leather: #6A3D2C;
+  --oxblood: #8E4635;
+  --bone: #D5C39A;
+  --gunmetal: #555C59;
+  --ember: #E29A3B;
+  --medical-red: #C94F46;
+  --wet-teal: #4E7B80;
+  --sage: #71805B;
+
+  /* Derived surface & reading shades within the locked material family */
+  --soot-deep: #110F0D;
+  --well-floor: #1C1612;
+  --plate-dark: #333836;
+  --plate-hover: #3F4643;
+  --plate-shade: #232725;
+  --bone-prose: #CDBB94;
+  --bone-muted: #A8946D;
+  --ember-bright: #F0AE52;
+  --ember-shade: #9E5E1B;
+
+  --font-pixel: "Ember Road", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  border-radius: 0;
+}
+
+html {
+  color-scheme: dark;
+  background-color: var(--soot);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--soot);
+  background-image:
+    radial-gradient(ellipse 90% 420px at 50% 0%, rgba(142, 70, 53, 0.16), transparent 70%),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.012) 0px,
+      rgba(255, 255, 255, 0.012) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+  color: var(--bone);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+img.pixel-art {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* Pixel display typography — never synthetic bold/italic (ThemeTypography) */
+.pixel-text,
+h1, h2, h3,
+.eyebrow,
+.nav-plate,
+.section-tab,
+.status-chip,
+.cta-plate,
+kbd.keycap {
+  font-family: var(--font-pixel);
+  font-weight: 400;
+  font-synthesis: none;
+  letter-spacing: 0.04em;
+}
+
+a {
+  color: var(--ember);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+a:hover {
+  color: var(--ember-bright);
+}
+
+a:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--ember);
+  outline-offset: 3px;
+}
+
+/* Layout shell */
+.shell {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 20px 20px 56px;
+}
+
+/* ==========================================================================
+   Persistent Shell Topbar & Brushed Gunmetal Nav Plates
+   ========================================================================== */
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  background-color: var(--pitch);
+  border: 2px solid var(--soot);
+  box-shadow:
+    inset 0 2px 0 var(--oxblood),
+    inset 2px 0 0 var(--leather),
+    inset -2px -2px 0 var(--leather),
+    0 4px 0 var(--soot-deep);
+  position: relative;
+}
+
+.topbar::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px dashed rgba(154, 131, 89, 0.32);
+  pointer-events: none;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--bone);
+  position: relative;
+  z-index: 1;
+}
+
+.brand-icon-slot {
+  width: 44px;
+  height: 44px;
+  padding: 3px;
+  background-color: var(--soot);
+  border-top: 2px solid var(--soot-deep);
+  border-left: 2px solid var(--soot-deep);
+  border-right: 2px solid var(--leather);
+  border-bottom: 2px solid var(--leather);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.brand-icon-slot img {
+  width: 36px;
+  height: 36px;
+  display: block;
+}
+
+.brand-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.brand-title {
+  font-family: var(--font-pixel);
+  font-size: 16px;
+  line-height: 1.1;
+  color: var(--bone);
+  text-transform: uppercase;
+}
+
+.brand-sub {
+  font-family: var(--font-pixel);
+  font-size: 12px;
+  line-height: 1.1;
+  color: var(--ember);
+  text-transform: uppercase;
+}
+
+.brand:hover .brand-title {
+  color: var(--ember-bright);
+}
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Brushed slate metal plate with 4 corner brass rivets (OptionsView / DvButton) */
+.nav-plate {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 15px 8px;
+  font-size: 13px;
+  line-height: 1;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--bone);
+  background-color: var(--plate-dark);
+  background-image:
+    /* 4 corner brass rivets */
+    radial-gradient(circle at 5px 5px, var(--bone) 0 1px, var(--waxed-canvas) 1px 2px, transparent 2.2px),
+    radial-gradient(circle at calc(100% - 5px) 5px, var(--bone) 0 1px, var(--waxed-canvas) 1px 2px, transparent 2.2px),
+    radial-gradient(circle at 5px calc(100% - 5px), var(--bone) 0 1px, var(--waxed-canvas) 1px 2px, transparent 2.2px),
+    radial-gradient(circle at calc(100% - 5px) calc(100% - 5px), var(--bone) 0 1px, var(--waxed-canvas) 1px 2px, transparent 2.2px),
+    /* Subtle brushed slate grain */
+    repeating-linear-gradient(
+      112deg,
+      rgba(213, 195, 154, 0.03) 0px,
+      rgba(213, 195, 154, 0.03) 2px,
+      transparent 2px,
+      transparent 9px
+    );
+  border: 2px solid var(--soot);
+  box-shadow:
+    inset 0 1px 0 var(--gunmetal),
+    inset 0 -2px 0 var(--plate-shade);
+  transition: background-color 80ms steps(2), color 80ms steps(2), transform 80ms steps(2);
+}
+
+.nav-plate:hover {
+  background-color: var(--plate-hover);
+  color: var(--ember-bright);
+  box-shadow:
+    inset 0 1px 0 var(--canvas-highlight),
+    inset 0 -2px 0 var(--plate-shade),
+    0 0 0 1px var(--ember);
+}
+
+.nav-plate[aria-current="page"] {
+  background-color: #3E2C1E;
+  color: var(--ember);
+  border-color: var(--ember);
+  box-shadow:
+    inset 0 1px 0 var(--oxblood),
+    inset 0 -2px 0 var(--soot);
+}
+
+.nav-plate.nav-lang {
+  background-color: var(--well-floor);
+  color: var(--canvas-highlight);
+  box-shadow:
+    inset 0 1px 0 var(--leather),
+    inset 0 -2px 0 var(--soot);
+}
+
+.nav-plate.nav-lang:hover {
+  color: var(--bone);
+  border-color: var(--canvas-highlight);
+}
+
+/* ==========================================================================
+   UiStyle.draw_leather_panel — Stitched Leather Frame & Corner Rivet Guards
+   ========================================================================== */
+.leather-panel {
+  position: relative;
+  background-color: var(--pitch);
+  background-image:
+    /* Subtle worn leather scuff texture */
+    repeating-linear-gradient(
+      -28deg,
+      rgba(23, 21, 18, 0.18) 0px,
+      rgba(23, 21, 18, 0.18) 2px,
+      transparent 2px,
+      transparent 14px
+    );
+  border: 2px solid var(--soot);
+  box-shadow:
+    inset 0 3px 0 var(--oxblood),
+    inset 3px 0 0 var(--oxblood),
+    inset -3px 0 0 var(--leather),
+    inset 0 -3px 0 var(--leather),
+    inset 0 0 0 5px var(--soot),
+    0 8px 0 rgba(17, 15, 13, 0.85);
+  padding: 32px 28px;
+  margin-bottom: 24px;
+}
+
+/* Inset 3px-on / 2px-off dashed stitch seam around panel perimeter */
+.leather-panel::before {
+  content: "";
+  position: absolute;
+  inset: 9px;
+  border: 1px dashed rgba(154, 131, 89, 0.45);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* 4 Oxblood Leather Corner Guards with Brass/Bone Rivets (UiStyle._draw_guard) */
+.corner-guards {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.corner-guards::before,
+.corner-guards::after,
+.leather-panel > .guard-bl,
+.leather-panel > .guard-br {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background-color: var(--oxblood);
+  border: 2px solid var(--soot);
+  box-shadow:
+    inset 0 1px 0 var(--medical-red),
+    inset 0 -1px 0 var(--leather);
+  /* Crisp 4x4 square pixel rivet in each corner guard */
+  background-image:
+    linear-gradient(var(--bone), var(--bone)),
+    linear-gradient(var(--gunmetal), var(--gunmetal)),
+    linear-gradient(var(--soot), var(--soot));
+  background-size: 2px 2px, 4px 4px, 6px 6px;
+  background-position: 4px 4px, 4px 4px, 3px 3px;
+  background-repeat: no-repeat;
+}
+
+.corner-guards::before { top: -2px; left: -2px; }
+.corner-guards::after  { top: -2px; right: -2px; }
+.leather-panel > .guard-bl { bottom: -2px; left: -2px; pointer-events: none; z-index: 3; }
+.leather-panel > .guard-br { bottom: -2px; right: -2px; pointer-events: none; z-index: 3; }
+
+/* ==========================================================================
+   Sunset Ember Road Hero Frame
+   ========================================================================== */
+.hero-panel {
+  padding: 5px;
+  overflow: hidden;
+}
+
+.hero-art {
+  position: relative;
+  background-color: var(--soot);
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(23, 21, 18, 0.92) 0%,
+      rgba(23, 21, 18, 0.76) 52%,
+      rgba(23, 21, 18, 0.42) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(23, 21, 18, 0.30) 0%,
+      rgba(23, 21, 18, 0.65) 65%,
+      rgba(23, 21, 18, 0.96) 100%
+    ),
+    url("./assets/hero-road.jpg");
+  background-size: cover;
+  background-position: center 42%;
+  padding: 36px 28px 28px;
+  z-index: 1;
+}
+
+.hero-art.hero-compact {
+  padding: 26px 28px 24px;
+  background-position: center 48%;
+}
+
+.hero-logo {
+  display: block;
+  width: min(380px, 84vw);
+  height: auto;
+  margin-bottom: 16px;
+  filter: drop-shadow(0 4px 0 var(--soot));
+}
+
+.hero-compact .hero-logo {
+  width: min(260px, 72vw);
+  margin-bottom: 14px;
+}
+
+.eyebrow {
+  display: inline-block;
+  margin: 0 0 10px;
+  padding: 4px 10px 3px 8px;
+  font-size: 12px;
+  line-height: 1.2;
+  text-transform: uppercase;
+  background-color: var(--ember);
+  color: var(--soot);
+  clip-path: polygon(0 0, calc(100% - 7px) 0, 100% 7px, 100% 100%, 0 100%);
+}
+
+.eyebrow.tone-teal {
+  background-color: var(--wet-teal);
+  color: var(--bone);
+}
+
+.eyebrow.tone-sage {
+  background-color: var(--sage);
+  color: var(--soot);
+}
+
+.hero-art h1 {
+  margin: 4px 0 12px;
+  font-size: clamp(22px, 3.6vw, 32px);
+  line-height: 1.25;
+  color: var(--bone);
+  text-transform: uppercase;
+  text-shadow: 0 3px 0 var(--soot);
+}
+
+.hero-lead {
+  margin: 0;
+  max-width: 60ch;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--bone);
+  text-shadow: 0 1px 2px var(--soot);
+}
+
+/* Status / Spec Readout Chips */
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px 4px;
+  font-size: 12px;
+  line-height: 1.1;
+  text-transform: uppercase;
+  background-color: rgba(23, 21, 18, 0.88);
+  color: var(--bone);
+  border: 1px solid var(--waxed-canvas);
+  box-shadow: inset 0 -1px 0 var(--soot);
+}
+
+.status-chip .dot {
+  width: 6px;
+  height: 6px;
+  background-color: var(--ember);
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.status-chip.sage .dot { background-color: var(--sage); }
+.status-chip.teal .dot { background-color: var(--wet-teal); }
+
+/* ==========================================================================
+   UiStyle.draw_section — Stencilled Cut-Corner Section Headers
+   ========================================================================== */
+.section-bar {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  margin: 0 0 18px;
+}
+
+.section-bar:not(:first-child) {
+  margin-top: 32px;
+}
+
+.section-tab {
+  display: inline-block;
+  padding: 6px 14px 5px 10px;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.1;
+  text-transform: uppercase;
+  background-color: var(--canvas-highlight);
+  color: var(--soot);
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+  flex-shrink: 0;
+}
+
+.section-tab.ember {
+  background-color: var(--ember);
+  color: var(--soot);
+}
+
+.section-tab.sage {
+  background-color: var(--sage);
+  color: var(--soot);
+}
+
+.section-tab.teal {
+  background-color: var(--wet-teal);
+  color: var(--bone);
+}
+
+.section-tab.oxblood {
+  background-color: var(--oxblood);
+  color: var(--bone);
+}
+
+.section-suffix {
+  font-family: var(--font-pixel);
+  font-size: 12px;
+  line-height: 1.1;
+  color: var(--canvas-highlight);
+  text-transform: uppercase;
+  padding-bottom: 3px;
+  flex-shrink: 0;
+}
+
+.section-rule {
+  flex: 1;
+  height: 2px;
+  background-color: var(--gunmetal);
+  margin-bottom: 2px;
+  min-width: 16px;
+}
+
+/* ==========================================================================
+   Field Dispatch Notice (Status is never colour-only — DV-700 invariant #6)
+   ========================================================================== */
+.dispatch-notice {
+  position: relative;
+  margin: 0 0 26px;
+  padding: 18px 20px;
+  background-color: var(--well-floor);
+  border-top: 2px solid var(--soot-deep);
+  border-left: 4px solid var(--ember);
+  border-right: 2px solid var(--leather);
+  border-bottom: 2px solid var(--leather);
+}
+
+.dispatch-notice.oxblood {
+  border-left-color: var(--oxblood);
+}
+
+.dispatch-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-pixel);
+  font-size: 12px;
+  line-height: 1.1;
+  text-transform: uppercase;
+  color: var(--ember);
+  margin-bottom: 8px;
+}
+
+.dispatch-notice.oxblood .dispatch-badge {
+  color: var(--medical-red);
+}
+
+.dispatch-notice p {
+  margin: 0;
+  color: var(--bone);
+}
+
+.dispatch-notice p + p {
+  margin-top: 8px;
+  color: var(--bone-prose);
+}
+
+/* ==========================================================================
+   Recessed Backpack-Cell Cards & Tactical Action Links
+   ========================================================================== */
+.pack-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin: 16px 0 8px;
+}
+
+.pack-grid.cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+/* Recessed backpack slot (UiStyle.draw_well + cell corner ticks) */
+.pack-cell {
+  position: relative;
+  background-color: var(--well-floor);
+  border-top: 2px solid var(--soot-deep);
+  border-left: 2px solid var(--soot-deep);
+  border-right: 2px solid var(--leather);
+  border-bottom: 2px solid var(--leather);
+  padding: 18px 18px 16px;
+  background-image:
+    /* Tiny waxed-canvas corner ticks inside the recessed cell */
+    linear-gradient(var(--waxed-canvas), var(--waxed-canvas)),
+    linear-gradient(var(--waxed-canvas), var(--waxed-canvas)),
+    linear-gradient(var(--waxed-canvas), var(--waxed-canvas)),
+    linear-gradient(var(--waxed-canvas), var(--waxed-canvas));
+  background-size: 5px 1px, 1px 5px, 5px 1px, 1px 5px;
+  background-position: 6px 6px, 6px 6px, calc(100% - 6px) 6px, calc(100% - 6px) 6px;
+  background-repeat: no-repeat;
+}
+
+.pack-cell h3 {
+  margin: 0 0 8px;
+  font-size: 15px;
+  line-height: 1.3;
+  color: var(--ember);
+  text-transform: uppercase;
+}
+
+.pack-cell p {
+  margin: 0;
+  color: var(--bone-prose);
+  font-size: 15px;
+}
+
+.pack-cell p + p {
+  margin-top: 10px;
+}
+
+.cell-step {
+  display: inline-block;
+  font-family: var(--font-pixel);
+  font-size: 12px;
+  line-height: 1;
+  padding: 3px 6px 2px;
+  margin-bottom: 8px;
+  background-color: var(--leather);
+  color: var(--bone);
+  border: 1px solid var(--soot);
+}
+
+/* Interactive Navigation Cards (Home -> Support / Privacy) */
+.action-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-decoration: none;
+  color: var(--bone);
+  background-color: var(--well-floor);
+  border: 2px solid var(--soot);
+  box-shadow:
+    inset 0 1px 0 var(--waxed-canvas),
+    inset 0 -2px 0 var(--soot-deep);
+  padding: 20px;
+  transition: transform 80ms steps(2), box-shadow 80ms steps(2);
+}
+
+.action-card:hover {
+  color: var(--bone);
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 var(--ember),
+    0 0 0 2px var(--ember),
+    0 6px 0 var(--soot-deep);
+}
+
+.action-card h3 {
+  margin: 0 0 8px;
+  font-size: 17px;
+  line-height: 1.25;
+  color: var(--bone);
+  text-transform: uppercase;
+}
+
+.action-card p {
+  margin: 0 0 18px;
+  color: var(--bone-prose);
+  font-size: 15px;
+}
+
+/* Distressed Ember Painted CTA Plate (like COMMIT / GO TO MORROW) */
+.cta-plate {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 14px 9px;
+  font-size: 13px;
+  line-height: 1.1;
+  text-transform: uppercase;
+  color: var(--soot);
+  background-color: var(--ember);
+  background-image:
+    radial-gradient(circle at 5px 5px, var(--soot) 0 1.5px, transparent 1.7px),
+    radial-gradient(circle at calc(100% - 5px) 5px, var(--soot) 0 1.5px, transparent 1.7px),
+    radial-gradient(circle at 5px calc(100% - 5px), var(--soot) 0 1.5px, transparent 1.7px),
+    radial-gradient(circle at calc(100% - 5px) calc(100% - 5px), var(--soot) 0 1.5px, transparent 1.7px),
+    repeating-linear-gradient(
+      -35deg,
+      rgba(158, 94, 27, 0.22) 0px,
+      rgba(158, 94, 27, 0.22) 3px,
+      transparent 3px,
+      transparent 13px
+    );
+  border: 2px solid var(--soot);
+  box-shadow:
+    inset 0 2px 0 var(--ember-bright),
+    inset 0 -2px 0 var(--ember-shade);
+}
+
+.cta-plate.secondary {
+  background-color: var(--plate-dark);
+  color: var(--bone);
+  background-image:
+    radial-gradient(circle at 5px 5px, var(--bone) 0 1px, var(--waxed-canvas) 1px 2px, transparent 2.2px),
+    radial-gradient(circle at calc(100% - 5px) 5px, var(--bone) 0 1px, var(--waxed-canvas) 1px 2px, transparent 2.2px),
+    radial-gradient(circle at 5px calc(100% - 5px), var(--bone) 0 1px, var(--waxed-canvas) 1px 2px, transparent 2.2px),
+    radial-gradient(circle at calc(100% - 5px) calc(100% - 5px), var(--bone) 0 1px, var(--waxed-canvas) 1px 2px, transparent 2.2px);
+  box-shadow:
+    inset 0 1px 0 var(--gunmetal),
+    inset 0 -2px 0 var(--plate-shade);
+}
+
+.action-card:hover .cta-plate.secondary {
+  background-color: var(--plate-hover);
+  color: var(--ember-bright);
+}
+
+/* ==========================================================================
+   Controls Keybind Rows & Painted Keycap Plates (UiStyle.draw_keycap)
+   ========================================================================== */
+.keybind-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 12px 0 16px;
+}
+
+.keybind-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 12px;
+  background-color: var(--plate-dark);
+  background-image:
+    repeating-linear-gradient(
+      108deg,
+      rgba(213, 195, 154, 0.028) 0px,
+      rgba(213, 195, 154, 0.028) 2px,
+      transparent 2px,
+      transparent 10px
+    );
+  border: 2px solid var(--soot);
+  box-shadow:
+    inset 0 1px 0 var(--gunmetal),
+    inset 0 -2px 0 var(--plate-shade);
+}
+
+.keybind-label {
+  font-size: 14px;
+  color: var(--bone);
+}
+
+.keycap-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+kbd.keycap {
+  display: inline-block;
+  padding: 4px 7px 3px;
+  font-size: 12px;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--soot);
+  background-color: #C7B389;
+  border: 2px solid var(--soot);
+  box-shadow:
+    inset 0 1px 0 #EFE1BE,
+    inset 0 -2px 0 #7B6544;
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   Prose, Lists & FAQ Accordion Rows
+   ========================================================================== */
+.prose {
+  color: var(--bone-prose);
+}
+
+.prose p {
+  margin: 0 0 14px;
+}
+
+.prose p:last-child {
+  margin-bottom: 0;
+}
+
+.prose strong {
+  color: var(--bone);
+  font-weight: 600;
+}
+
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  padding: 2px 6px;
+  background-color: var(--soot);
+  color: var(--ember);
+  border: 1px solid var(--leather);
+}
+
+.field-list {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0;
+  display: grid;
+  gap: 10px;
+}
+
+.field-list li {
+  position: relative;
+  padding: 12px 14px 12px 30px;
+  background-color: var(--well-floor);
+  border-top: 1px solid var(--soot-deep);
+  border-left: 3px solid var(--waxed-canvas);
+  border-right: 1px solid var(--leather);
+  border-bottom: 1px solid var(--leather);
+  color: var(--bone-prose);
+  font-size: 15px;
+}
+
+.field-list li::before {
+  content: ">";
+  position: absolute;
+  left: 11px;
+  top: 13px;
+  font-family: var(--font-pixel);
+  font-size: 12px;
+  color: var(--ember);
+}
+
+.field-list li strong {
+  color: var(--bone);
+}
+
+/* Bilingual Español Section */
+.es-panel {
+  border-top: 2px dashed rgba(154, 131, 89, 0.35);
+  margin-top: 32px;
+  padding-top: 28px;
+}
+
+/* Footer */
+.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 18px;
+  background-color: var(--well-floor);
+  border: 2px solid var(--soot);
+  box-shadow:
+    inset 0 1px 0 var(--leather),
+    0 4px 0 var(--soot-deep);
+  color: var(--bone-muted);
+  font-size: 14px;
+}
+
+.site-footer p {
+  margin: 2px 0;
+}
+
+.footer-brand {
+  font-family: var(--font-pixel);
+  font-size: 12px;
+  color: var(--bone);
+  text-transform: uppercase;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-links a {
+  font-family: var(--font-pixel);
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--canvas-highlight);
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: var(--ember);
+}
+
+/* ==========================================================================
+   Responsive Breakpoints (Mac Desktop, iPad Landscape & Mobile)
+   ========================================================================== */
+@media (max-width: 760px) {
+  .pack-grid,
+  .pack-grid.cols-3,
+  .keybind-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .leather-panel {
+    padding: 24px 18px;
+  }
+
+  .hero-art,
+  .hero-art.hero-compact {
+    padding: 24px 18px 20px;
+  }
+}
+
+@media (max-width: 540px) {
+  .shell {
+    padding: 12px 12px 40px;
+  }
+
+  .topbar {
+    padding: 12px;
+  }
+
+  .site-nav {
+    width: 100%;
+  }
+
+  .nav-plate {
+    flex: 1 1 auto;
+    padding: 9px 10px 8px;
+    font-size: 12px;
+  }
+}
