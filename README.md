@@ -14,11 +14,8 @@ Hosted with GitHub Pages from the root of `main`:
 - `title-logo.png`, `hero-road.jpg`, `app-icon.png`, `favicon.png` — First-party game logo, menu road illustration, and backpack app icon owned by the project.
 - Buildless static HTML + CSS (`styles.css`), with `.nojekyll`, zero JavaScript, zero analytics, and zero third-party font/CDN requests.
 
-## Pre-Release Checklist
+## Privacy and support
 
-These pages keep `<meta name="robots" content="noindex,nofollow">` and explicit provisional notices where final publisher details are still pending. Before App Store submission:
+The English and Spanish policy is effective November 12, 2026. Public support/privacy contact: alex@growlite.ai. It describes offline local saves and diagnostics, optional support correspondence, Apple TestFlight beta data, GitHub Pages hosting, retention and deletion choices. No analytics, scripts, remote fonts, cookies or forms were added.
 
-1. Replace the privacy placeholder notice in `privacy/index.html` with the reviewed final privacy policy and privacy contact address.
-2. Add the approved public support contact address to `support/index.html`.
-3. Confirm final English and Spanish copy against the qualified release candidate.
-4. Remove `noindex,nofollow` when ready for search discovery.
+Search indexing remains disabled while the application is in beta. Publishing these player-information pages does not submit or release an App Store application.
