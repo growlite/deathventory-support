@@ -16,6 +16,6 @@ Hosted with GitHub Pages from the root of `main`:
 
 ## Privacy and support
 
-The English and Spanish policy is effective November 12, 2026. Public support/privacy contact: alex@growlite.ai. It describes offline local saves and diagnostics, optional support correspondence, Apple TestFlight beta data, GitHub Pages hosting, retention and deletion choices. No analytics, scripts, remote fonts, cookies or forms were added.
+The English and Spanish policy is dated November 24, 2026. Public support/privacy contact: alex@growlite.ai. It describes offline local saves and diagnostics, optional support correspondence, App Store crash sharing, Apple TestFlight beta data, GitHub Pages hosting, retention and deletion choices. No analytics, scripts, remote fonts, cookies or forms were added.
 
 Search indexing remains disabled while the application is in beta. Publishing these player-information pages does not submit or release an App Store application.
